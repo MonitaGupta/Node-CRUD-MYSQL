@@ -1,14 +1,13 @@
 const patient = require('../model/patient.model')
 const db = require('../database/connection')
 
-const getAllList = async function(req, res) { 
+const symptomsList = async function(req, res) { 
     try {
-        let patientId = req.query.patientId;
         let pool = await db.getConnection();
 
         let input = {
             connection: pool,
-            patientId: patientId
+            patientId: req.params.patientid
         }
         let objList = await patient.get(input);
         
@@ -19,7 +18,7 @@ const getAllList = async function(req, res) {
     }
     
 }
-module.exports.getAllList = getAllList;
+module.exports.symptomsList = symptomsList;
 
 const postSymptoms = async function(req, res) {
     try {
@@ -27,7 +26,7 @@ const postSymptoms = async function(req, res) {
         var input = {
             connection: pool,
             patientId: req.query.patientId,
-            symptomsList: req.query.symptomsList.split(',')
+            symptomsList: req.query.symptomsList
         }
         const objList= await patient.post(input).catch(error => 
             res.send({message: "error"}));

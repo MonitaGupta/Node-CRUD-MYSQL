@@ -13,8 +13,8 @@ const createConnection = function(){
         queueLimit: 0
       });
     
-        promisePool = db.promise();
-        return promisePool;
+       promisePool = db.promise();
+       return promisePool;
 }
 module.exports .createConnection = createConnection;
 
@@ -22,7 +22,7 @@ const getConnection = function() {
     return promisePool;
 }
 
-module.exports.getConnection= getConnection
+module.exports.getConnection= getConnection;
      
 const executeQuery = async function(userInput) {
     try {
@@ -33,12 +33,5 @@ const executeQuery = async function(userInput) {
     } catch (err) {
         return err;
     }   
-}
-module.exports.executeQuery = executeQuery;
-
-
-const closeConnection = function(userInput) {
-    var connection = userInput.con;
-    connection.end();
 }
 module.exports.executeQuery = executeQuery;
