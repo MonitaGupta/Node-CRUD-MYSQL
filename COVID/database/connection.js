@@ -6,8 +6,8 @@ const createConnection = function(){
     var db = mysql.createPool({
         host: 'localhost',
         user: 'root',
-        database: 'ecommerce',
-        password: 'Angel123#',
+        database: '######',
+        password: '#####',
         waitForConnections: true,
         connectionLimit: 10,
         queueLimit: 0
