@@ -1,31 +1,38 @@
-const mysql = require('mysql2/promise');
-const { to, ReE, ReS }  = require('../service/util.service');
+const mysql = require('mysql2');
 
-const createConnection = async function(){
-    var con = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "#######",
-        database: "ecommerce"     
+
+var promisePool;
+const createConnection = function(){
+    var db = mysql.createPool({
+        host: 'localhost',
+        user: 'root',
+        database: 'ecommerce',
+        password: 'Angel123#',
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0
       });
+    
+        promisePool = db.promise();
+        return promisePool;
+}
+module.exports .createConnection = createConnection;
 
-    if(con != null) {
-        return con;
-    } else {
-        let error = {message: "Not connected"};
-        return error;
-    }
+const getConnection = function() {
+    return promisePool;
 }
 
-module.exports. createConnection = createConnection;
-       
+module.exports.getConnection= getConnection
+     
 const executeQuery = async function(userInput) {
-    var res = []
-    let any;
-    var sql = userInput.sql;
-    var connection = userInput.connection;
-    let [rows, fields] = await connection.execute(sql);
-    return rows;
+    try {
+        var sql = userInput.sql;
+        var connection = userInput.connection;
+        let [rows, fields] = await connection.execute(sql);
+        return rows;
+    } catch (err) {
+        return err;
+    }   
 }
 module.exports.executeQuery = executeQuery;
 

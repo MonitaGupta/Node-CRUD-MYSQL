@@ -42,7 +42,7 @@ router.delete('/doctor/:patientId', doctorController.remove);  // Delete 1 patie
 
     res.json({status:"success", message:"Welcome patient", data:{"version_number":"v1.0.0"}})
   });*/
-router.get('/patient',  patientController.createConnection); 
+
 router.post('/addSymptoms', patientController.postSymptoms);
 router.get('/getSymptomsList', patientController.getAllList); 
 
